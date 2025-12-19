@@ -1,3 +1,3 @@
-    public class InvestorProfileControler{
+    public class InvestorProfileController{
         
     }
