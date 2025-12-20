@@ -12,7 +12,7 @@ public class RebalancingAlertRecordController {
 
     private final RebalancingAlertService service;
 
-    public RebalancingAlertController(RebalancingAlertService service) {
+    public RebalancingAlertRecordController(RebalancingAlertService service) {
         this.service = service;
     }
 
