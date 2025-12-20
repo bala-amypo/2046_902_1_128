@@ -9,24 +9,24 @@
 // @Configuration
 public class SecurityConfig {
 
-    private final JwtUtil jwtUtil;
+    // private final JwtUtil jwtUtil;
 
-    public SecurityConfig(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
+    // public SecurityConfig(JwtUtil jwtUtil) {
+    //     this.jwtUtil = jwtUtil;
+    // }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    // @Bean
+    // public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-            .csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/auth/**").permitAll()
-            .anyRequest().authenticated()
-            .and()
-            .addFilterBefore(new JwtAuthenticationFilter(jwtUtil),
-                    org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+    //     http
+    //         .csrf().disable()
+    //         .authorizeRequests()
+    //         .antMatchers("/auth/**").permitAll()
+    //         .anyRequest().authenticated()
+    //         .and()
+    //         .addFilterBefore(new JwtAuthenticationFilter(jwtUtil),
+    //                 org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
-        return http.build();
-    }
+    //     return http.build();
+    // }
 }
