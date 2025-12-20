@@ -7,7 +7,7 @@ import com.example.demo.service.RebalancingAlertService;
 
 import java.util.List;
 
-public class RebalancingAlertServiceImpl implements RebalancingAlertService {
+public class RebalancingAlertRecordServiceImpl implements RebalancingAlertService {
 
     private final RebalancingAlertRecordRepository repo;
 
