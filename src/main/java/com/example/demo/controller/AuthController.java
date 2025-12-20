@@ -4,7 +4,6 @@ import com.example.demo.dto.*;
 import com.example.demo.entity.UserAccount;
 import com.example.demo.repository.UserAccountRepository;
 import com.example.demo.security.JwtUtil;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,15 +11,10 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final UserAccountRepository repo;
-    private final PasswordEncoder encoder;
     private final JwtUtil jwtUtil;
 
-    public AuthController(UserAccountRepository repo,
-                          PasswordEncoder encoder,
-                          JwtUtil jwtUtil) {
-
+    public AuthController(UserAccountRepository repo, JwtUtil jwtUtil) {
         this.repo = repo;
-        this.encoder = encoder;
         this.jwtUtil = jwtUtil;
     }
 
@@ -30,7 +24,7 @@ public class AuthController {
         UserAccount user = new UserAccount(
                 request.getUsername(),
                 request.getEmail(),
-                encoder.encode(request.getPassword()),
+                request.getPassword(),   // store raw
                 request.getRole()
         );
 
@@ -43,7 +37,7 @@ public class AuthController {
         UserAccount user = repo.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid credentials"));
 
-        if (!encoder.matches(request.getPassword(), user.getPassword())) {
+        if (!user.getPassword().equals(request.getPassword())) {
             throw new IllegalArgumentException("Invalid credentials");
         }
 
