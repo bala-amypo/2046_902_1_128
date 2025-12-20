@@ -1,12 +1,12 @@
-package com.example.demo.config;
+// package com.example.demo.config;
 
-import com.example.demo.security.JwtAuthenticationFilter;
-import com.example.demo.security.JwtUtil;
-import org.springframework.context.annotation.*;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
+// import com.example.demo.security.JwtAuthenticationFilter;
+// import com.example.demo.security.JwtUtil;
+// import org.springframework.context.annotation.*;
+// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+// import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
+// @Configuration
 public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
