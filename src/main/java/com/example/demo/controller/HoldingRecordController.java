@@ -17,27 +17,32 @@ public class HoldingRecordController {
     }
 
     @PostMapping
-    public HoldingRecord create(@RequestBody HoldingRecord holding) {
-        return service.recordHolding(holding);
+    public HoldingRecord create(@RequestBody HoldingRecord record) {
+        return service.create(record);
     }
 
     @GetMapping("/{id}")
     public HoldingRecord getById(@PathVariable Long id) {
-        return service.getHoldingById(id);
+        return service.getById(id);
     }
 
     @GetMapping("/investor/{investorId}")
     public List<HoldingRecord> getByInvestor(@PathVariable Long investorId) {
-        return service.getHoldingsByInvestor(investorId);
+        return service.getByInvestor(investorId);
     }
 
     @GetMapping
     public List<HoldingRecord> getAll() {
-        return service.getAllHoldings();
+        return service.getAll();
+    }
+
+    @PutMapping("/{id}")
+    public HoldingRecord update(@PathVariable Long id, @RequestBody HoldingRecord record) {
+        return service.update(id, record);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        service.deleteHolding(id);
+        service.delete(id);
     }
 }

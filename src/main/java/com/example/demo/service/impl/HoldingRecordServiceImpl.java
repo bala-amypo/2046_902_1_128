@@ -1,12 +1,13 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.HoldingRecord;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.HoldingRecordRepository;
 import com.example.demo.service.HoldingRecordService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class HoldingRecordServiceImpl implements HoldingRecordService {
 
     private final HoldingRecordRepository repo;
@@ -16,29 +17,37 @@ public class HoldingRecordServiceImpl implements HoldingRecordService {
     }
 
     @Override
-    public HoldingRecord recordHolding(HoldingRecord holding) {
-        return repo.save(holding);
+    public HoldingRecord create(HoldingRecord record) {
+        return repo.save(record);
     }
 
     @Override
-    public List<HoldingRecord> getHoldingsByInvestor(Long investorId) {
+    public HoldingRecord update(Long id, HoldingRecord updated) {
+        HoldingRecord record = getById(id);
+        record.setAssetClass(updated.getAssetClass());
+        record.setCurrentValue(updated.getCurrentValue());
+        record.setSnapshotDate(updated.getSnapshotDate());
+        return repo.save(record);
+    }
+
+    @Override
+    public HoldingRecord getById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Holding record not found"));
+    }
+
+    @Override
+    public List<HoldingRecord> getByInvestor(Long investorId) {
         return repo.findByInvestorId(investorId);
     }
 
     @Override
-    public HoldingRecord getHoldingById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Holding not found"));
-    }
-
-    @Override
-    public List<HoldingRecord> getAllHoldings() {
+    public List<HoldingRecord> getAll() {
         return repo.findAll();
     }
 
     @Override
-    public void deleteHolding(Long id) {
-        HoldingRecord record = getHoldingById(id);
-        repo.delete(record);
+    public void delete(Long id) {
+        repo.deleteById(id);
     }
 }
