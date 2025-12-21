@@ -1,69 +1,40 @@
-package com.example.demo.entity;
+package com.example.demo.service.impl;
 
-import jakarta.persistence.*;
+import com.example.demo.entity.AllocationSnapshotRecord;
+import com.example.demo.repository.AllocationSnapshotRepository;
+import com.example.demo.service.AllocationSnapshotService;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Entity
-@Table(name = "allocation_snapshot_record")
-public class AllocationSnapshotRecord {
+@Service
+public class AllocationSnapshotServiceImpl implements AllocationSnapshotService {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final AllocationSnapshotRepository repo;
 
-    private Long investorId;
-
-    @Column(columnDefinition = "TEXT")
-    private String allocationJson;
-
-    private Float totalPortfolioValue;
-
-    private LocalDateTime snapshotDate;
-
-    public AllocationSnapshotRecord() {
-        this.snapshotDate = LocalDateTime.now();
+    public AllocationSnapshotServiceImpl(AllocationSnapshotRepository repo) {
+        this.repo = repo;
     }
 
-    public AllocationSnapshotRecord(Long investorId, String allocationJson, Float totalPortfolioValue) {
-        this.investorId = investorId;
-        this.allocationJson = allocationJson;
-        this.totalPortfolioValue = totalPortfolioValue;
-        this.snapshotDate = LocalDateTime.now();
+    @Override
+    public AllocationSnapshotRecord createSnapshot(Long investorId, Double value, String json) {
+        AllocationSnapshotRecord snapshot = new AllocationSnapshotRecord(
+                investorId,
+                value,
+                LocalDateTime.now(),
+                json
+        );
+        return repo.save(snapshot);
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId) {
+        return repo.findByInvestorId(investorId);
     }
 
-    public Long getInvestorId() {
-        return investorId;
-    }
-
-    public void setInvestorId(Long investorId) {
-        this.investorId = investorId;
-    }
-
-    public String getAllocationJson() {
-        return allocationJson;
-    }
-
-    public void setAllocationJson(String allocationJson) {
-        this.allocationJson = allocationJson;
-    }
-
-    public Float getTotalPortfolioValue() {
-        return totalPortfolioValue;
-    }
-
-    public void setTotalPortfolioValue(Float totalPortfolioValue) {
-        this.totalPortfolioValue = totalPortfolioValue;
-    }
-
-    public LocalDateTime getSnapshotDate() {
-        return snapshotDate;
-    }
-
-    public void setSnapshotDate(LocalDateTime snapshotDate) {
-        this.snapshotDate = snapshotDate;
+    @Override
+    public List<AllocationSnapshotRecord> getAllSnapshots() {
+        return repo.findAll();
     }
 }

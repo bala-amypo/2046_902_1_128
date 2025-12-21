@@ -5,9 +5,7 @@ import java.util.List;
 
 public interface AllocationSnapshotService {
 
-    AllocationSnapshotRecord computeSnapshot(Long investorId);
-
-    AllocationSnapshotRecord getSnapshotById(Long id);
+    AllocationSnapshotRecord createSnapshot(Long investorId, Double value, String json);
 
     List<AllocationSnapshotRecord> getSnapshotsByInvestor(Long investorId);
 
