@@ -29,7 +29,8 @@ public class AllocationRuleServiceImpl implements AllocationRuleService {
         existing.setTargetPercentage(rule.getTargetPercentage());
         existing.setInvestorId(rule.getInvestorId());
         existing.setAssetClass(rule.getAssetClass());
-        existing.setActive(rule.isActive());
+        existing.setActive(rule.getActive());
+
 
         return repo.save(existing);
     }
