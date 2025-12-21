@@ -15,7 +15,7 @@ import com.example.demo.service.AllocationSnapshotService;
 
 import java.time.LocalDateTime;
 import java.util.*;
-
+@service
 public class AllocationSnapshotServiceImpl implements AllocationSnapshotService {
 
     private final AllocationSnapshotRecordRepository snapshotRepo;
