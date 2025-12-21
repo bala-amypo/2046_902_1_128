@@ -1,12 +1,13 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.InvestorProfile;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.InvestorProfileRepository;
 import com.example.demo.service.InvestorProfileService;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class InvestorProfileServiceImpl implements InvestorProfileService {
 
     private final InvestorProfileRepository repo;
@@ -16,37 +17,40 @@ public class InvestorProfileServiceImpl implements InvestorProfileService {
     }
 
     @Override
-    public InvestorProfile createInvestor(InvestorProfile investor) {
-        return repo.save(investor);
+    public InvestorProfile createProfile(InvestorProfile profile) {
+        return repo.save(profile);
     }
 
     @Override
-    public InvestorProfile getInvestorById(Long id) {
+    public InvestorProfile getProfileById(Long id) {
         return repo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Investor not found"));
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
     }
 
     @Override
-    public InvestorProfile findByInvestorId(String investorId) {
+    public InvestorProfile getProfileByInvestorId(String investorId) {
         return repo.findByInvestorId(investorId)
-                .orElseThrow(() -> new ResourceNotFoundException("Investor not found"));
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
     }
 
     @Override
-    public List<InvestorProfile> getAllInvestors() {
+    public List<InvestorProfile> getAllProfiles() {
         return repo.findAll();
     }
 
     @Override
-    public InvestorProfile updateInvestorStatus(Long id, boolean active) {
-        InvestorProfile investor = getInvestorById(id);
-        investor.setActive(active);
-        return repo.save(investor);
+    public InvestorProfile updateProfile(Long id, InvestorProfile profile) {
+        InvestorProfile existing = getProfileById(id);
+
+        existing.setEmail(profile.getEmail());
+        existing.setFullName(profile.getFullName());
+        existing.setActive(profile.isActive());
+
+        return repo.save(existing);
     }
 
     @Override
-    public void deleteInvestor(Long id) {
-        InvestorProfile investor = getInvestorById(id);
-        repo.delete(investor);
+    public void deleteProfile(Long id) {
+        repo.deleteById(id);
     }
 }

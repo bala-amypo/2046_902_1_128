@@ -5,15 +5,15 @@ import java.util.List;
 
 public interface InvestorProfileService {
 
-    InvestorProfile createInvestor(InvestorProfile investor);
+    InvestorProfile createProfile(InvestorProfile profile);
 
-    InvestorProfile getInvestorById(Long id);
+    InvestorProfile getProfileById(Long id);
 
-    InvestorProfile findByInvestorId(String investorId);
+    InvestorProfile getProfileByInvestorId(String investorId);
 
-    List<InvestorProfile> getAllInvestors();
+    List<InvestorProfile> getAllProfiles();
 
-    InvestorProfile updateInvestorStatus(Long id, boolean active);
+    InvestorProfile updateProfile(Long id, InvestorProfile profile);
 
-    void deleteInvestor(Long id);
+    void deleteProfile(Long id);
 }
