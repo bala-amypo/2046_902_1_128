@@ -18,6 +18,17 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
     }
 
     @Override
+    public AllocationSnapshotRecord computeSnapshot(Long investorId) {
+        AllocationSnapshotRecord snapshot = new AllocationSnapshotRecord(
+                investorId,
+                10000.0,
+                LocalDateTime.now(),
+                "{\"sample\":true}"
+        );
+        return repo.save(snapshot);
+    }
+
+    @Override
     public AllocationSnapshotRecord createSnapshot(Long investorId, Double value, String json) {
         AllocationSnapshotRecord snapshot = new AllocationSnapshotRecord(
                 investorId,
@@ -26,6 +37,11 @@ public class AllocationSnapshotServiceImpl implements AllocationSnapshotService 
                 json
         );
         return repo.save(snapshot);
+    }
+
+    @Override
+    public AllocationSnapshotRecord getSnapshotById(Long id) {
+        return repo.findById(id).orElse(null);
     }
 
     @Override

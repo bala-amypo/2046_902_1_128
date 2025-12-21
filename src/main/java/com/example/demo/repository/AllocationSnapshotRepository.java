@@ -7,5 +7,4 @@ import java.util.List;
 public interface AllocationSnapshotRepository extends JpaRepository<AllocationSnapshotRecord, Long> {
 
     List<AllocationSnapshotRecord> findByInvestorId(Long investorId);
-
 }
