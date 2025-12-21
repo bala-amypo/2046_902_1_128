@@ -5,13 +5,15 @@ import java.util.List;
 
 public interface HoldingRecordService {
 
-    HoldingRecord recordHolding(HoldingRecord holding);
+    HoldingRecord create(HoldingRecord record);
 
-    List<HoldingRecord> getHoldingsByInvestor(Long investorId);
+    HoldingRecord update(Long id, HoldingRecord record);
 
-    HoldingRecord getHoldingById(Long id);
+    HoldingRecord getById(Long id);
 
-    List<HoldingRecord> getAllHoldings();
+    List<HoldingRecord> getByInvestor(Long investorId);
 
-    void deleteHolding(Long id);
+    List<HoldingRecord> getAll();
+
+    void delete(Long id);
 }
