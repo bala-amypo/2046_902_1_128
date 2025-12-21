@@ -22,6 +22,30 @@ public class AllocationRuleServiceImpl implements AllocationRuleService {
     }
 
     @Override
+    public AssetClassAllocationRule updateRule(Long id, AssetClassAllocationRule rule) {
+        AssetClassAllocationRule existing = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Rule not found"));
+
+        existing.setTargetPercentage(rule.getTargetPercentage());
+        existing.setInvestorId(rule.getInvestorId());
+        existing.setAssetClass(rule.getAssetClass());
+        existing.setActive(rule.isActive());
+
+        return repo.save(existing);
+    }
+
+    @Override
+    public AssetClassAllocationRule getRuleById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Rule not found"));
+    }
+
+    @Override
+    public void deleteRule(Long id) {
+        repo.deleteById(id);
+    }
+
+    @Override
     public List<AssetClassAllocationRule> getRulesByInvestor(Long investorId) {
         return repo.findByInvestorId(investorId);
     }
