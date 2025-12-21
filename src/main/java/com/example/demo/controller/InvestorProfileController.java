@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.InvestorProfile;
 import com.example.demo.service.InvestorProfileService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -16,34 +17,32 @@ public class InvestorProfileController {
     }
 
     @PostMapping
-    public InvestorProfile create(@RequestBody InvestorProfile investor) {
-        return service.createInvestor(investor);
+    public InvestorProfile create(@RequestBody InvestorProfile profile) {
+        return service.createProfile(profile);
     }
 
     @GetMapping("/{id}")
     public InvestorProfile getById(@PathVariable Long id) {
-        return service.getInvestorById(id);
+        return service.getProfileById(id);
     }
 
     @GetMapping
     public List<InvestorProfile> getAll() {
-        return service.getAllInvestors();
+        return service.getAllProfiles();
     }
 
-    @GetMapping("/lookup/{investorId}")
-    public InvestorProfile lookup(@PathVariable String investorId) {
-        return service.findByInvestorId(investorId);
+    @GetMapping("/unique/{investorId}")
+    public InvestorProfile getByInvestorId(@PathVariable String investorId) {
+        return service.getProfileByInvestorId(investorId);
     }
 
-    @PutMapping("/{id}/status")
-    public InvestorProfile updateStatus(
-            @PathVariable Long id,
-            @RequestParam boolean active) {
-        return service.updateInvestorStatus(id, active);
+    @PutMapping("/{id}")
+    public InvestorProfile update(@PathVariable Long id, @RequestBody InvestorProfile profile) {
+        return service.updateProfile(id, profile);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        service.deleteInvestor(id);
+        service.deleteProfile(id);
     }
 }

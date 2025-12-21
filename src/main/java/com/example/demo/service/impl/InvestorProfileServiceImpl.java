@@ -46,6 +46,7 @@ public class InvestorProfileServiceImpl implements InvestorProfileService {
         existing.setFullName(profile.getFullName());
         existing.setActive(profile.isActive());
 
+
         return repo.save(existing);
     }
 
