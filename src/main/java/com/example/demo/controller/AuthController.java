@@ -1,9 +1,6 @@
-package com.example.demo.security.JwtUtil;
+package com.example.demo.controller;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class JwtUtil {
+public class AuthController {
 
     
     
