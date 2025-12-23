@@ -1,8 +1,6 @@
 package com.example.demo.entity;
-
 import jakarta.persistence.*;
 import com.example.demo.entity.enums.RoleType;
-
 @Entity
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"username"}),
@@ -33,7 +31,7 @@ public class UserAccount {
         this.active = true;
     }
 
-    // getters and setters
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
