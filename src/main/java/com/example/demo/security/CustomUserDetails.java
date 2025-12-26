@@ -1,33 +1,33 @@
 package com.example.demo.security;
 
-import com.example.demo.entity.InvestorProfile;
+import com.example.demo.entity.UserAccount;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
 
 public class CustomUserDetails implements UserDetails {
+    private final UserAccount userAccount;
 
-    private final InvestorProfile user;
-
-    public CustomUserDetails(InvestorProfile user) {
-        this.user = user;
+    public CustomUserDetails(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + userAccount.getRole().name()));
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();   // ensure entity has password field
+        return userAccount.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return userAccount.getUsername();
     }
 
     @Override
@@ -47,6 +47,10 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return userAccount.getActive();
+    }
+
+    public UserAccount getUserAccount() {
+        return userAccount;
     }
 }
