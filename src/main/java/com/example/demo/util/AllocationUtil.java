@@ -3,7 +3,7 @@ package com.example.demo.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AllocationUtils {
+public class AllocationUtil {
 
     public static Map<String, Double> normalizeAllocations(Map<String, Double> input) {
         Map<String, Double> normalized = new HashMap<>();
