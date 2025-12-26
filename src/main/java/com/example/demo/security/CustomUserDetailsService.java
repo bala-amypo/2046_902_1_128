@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 import java.util.Collections;
 
-public class CustomUserDetails implements UserDetails {
+public class CustomUserDetailsSercive implements UserDetails {
 
     private final InvestorProfile user;
 
