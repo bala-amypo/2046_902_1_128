@@ -16,33 +16,13 @@ public class InvestorProfileController {
         this.service = service;
     }
 
-    @PostMapping
-    public InvestorProfile create(@RequestBody InvestorProfile profile) {
-        return service.createProfile(profile);
-    }
-
-    @GetMapping("/{id}")
-    public InvestorProfile getById(@PathVariable Long id) {
-        return service.getProfileById(id);
-    }
-
     @GetMapping
-    public List<InvestorProfile> getAll() {
-        return service.getAllProfiles();
+    public List<InvestorProfile> getAllInvestors() {
+        return service.getAllInvestors();
     }
 
-    @GetMapping("/unique/{investorId}")
-    public InvestorProfile getByInvestorId(@PathVariable String investorId) {
-        return service.getProfileByInvestorId(investorId);
-    }
-
-    @PutMapping("/{id}")
-    public InvestorProfile update(@PathVariable Long id, @RequestBody InvestorProfile profile) {
-        return service.updateProfile(id, profile);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.deleteProfile(id);
+    @PostMapping
+    public InvestorProfile createInvestor(@RequestBody InvestorProfile investor) {
+        return service.createInvestor(investor);
     }
 }

@@ -1,19 +1,25 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.InvestorProfile;
+import com.example.demo.repository.InvestorProfileRepository;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface InvestorProfileService {
+@Service
+public class InvestorProfileService {
 
-    InvestorProfile createProfile(InvestorProfile profile);
+    private final InvestorProfileRepository repository;
 
-    InvestorProfile getProfileById(Long id);
+    public InvestorProfileService(InvestorProfileRepository repository) {
+        this.repository = repository;
+    }
 
-    InvestorProfile getProfileByInvestorId(String investorId);
+    public List<InvestorProfile> getAllInvestors() {
+        return repository.findAll();
+    }
 
-    List<InvestorProfile> getAllProfiles();
-
-    InvestorProfile updateProfile(Long id, InvestorProfile profile);
-
-    void deleteProfile(Long id);
+    public InvestorProfile createInvestor(InvestorProfile investor) {
+        return repository.save(investor);
+    }
 }
