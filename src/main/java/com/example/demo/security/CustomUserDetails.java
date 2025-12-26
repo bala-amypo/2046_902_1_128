@@ -1,38 +1,6 @@
 package com.example.demo.security;
 
 import com.example.demo.entity.InvestorProfile;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.GrantedAuthority;
-import java.util.Collection;
-import java.util.Collections;
-
-public class CustomUserDetails implements UserDetails {
-
-    private final InvestorProfile user;
-
-    public CustomUserDetails(InvestorProfile user) {
-        this.user = user;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public String getPassword() {
-        return user.getPassword();
-    }
-
-    @Override
-    public String getUsername() {
-        return user.getEmail();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {package com.example.demo.security;
-
-import com.example.demo.entity.InvestorProfile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -49,12 +17,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return Collections.emptyList();  // no roles for now
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return user.getPassword();   // make sure your entity has password
     }
 
     @Override
@@ -64,25 +32,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-}
-
         return true;
     }
 
