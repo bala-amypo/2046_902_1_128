@@ -17,12 +17,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();  // no roles for now
+        return Collections.emptyList();
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();   // make sure your entity has password
+        return user.getPassword();   // ensure entity has password field
     }
 
     @Override
