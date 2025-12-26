@@ -2,47 +2,39 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.HoldingRecord;
 import com.example.demo.service.HoldingRecordService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/holdings")
 public class HoldingRecordController {
-
-    private final HoldingRecordService service;
-
-    public HoldingRecordController(HoldingRecordService service) {
-        this.service = service;
+    
+    private final HoldingRecordService holdingRecordService;
+    
+    public HoldingRecordController(HoldingRecordService holdingRecordService) {
+        this.holdingRecordService = holdingRecordService;
     }
-
+    
     @PostMapping
-    public HoldingRecord create(@RequestBody HoldingRecord record) {
-        return service.create(record);
+    public ResponseEntity<HoldingRecord> recordHolding(@RequestBody HoldingRecord holding) {
+        return ResponseEntity.ok(holdingRecordService.recordHolding(holding));
     }
-
-    @GetMapping("/{id}")
-    public HoldingRecord getById(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
+    
     @GetMapping("/investor/{investorId}")
-    public List<HoldingRecord> getByInvestor(@PathVariable Long investorId) {
-        return service.getByInvestor(investorId);
+    public ResponseEntity<List<HoldingRecord>> getHoldingsByInvestor(@PathVariable Long investorId) {
+        return ResponseEntity.ok(holdingRecordService.getHoldingsByInvestor(investorId));
     }
-
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<HoldingRecord>> getHoldingById(@PathVariable Long id) {
+        return ResponseEntity.ok(holdingRecordService.getHoldingById(id));
+    }
+    
     @GetMapping
-    public List<HoldingRecord> getAll() {
-        return service.getAll();
-    }
-
-    @PutMapping("/{id}")
-    public HoldingRecord update(@PathVariable Long id, @RequestBody HoldingRecord record) {
-        return service.update(id, record);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    public ResponseEntity<List<HoldingRecord>> getAllHoldings() {
+        return ResponseEntity.ok(holdingRecordService.getAllHoldings());
     }
 }
