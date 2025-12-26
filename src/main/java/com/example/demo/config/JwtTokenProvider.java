@@ -18,9 +18,9 @@ import java.io.IOException;
 public class JwtTokenProvider extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
-    private final ApplicationUserDetailsService userDetailsService;
+    private final CoustomUserDetailsService userDetailsService;
 
-    public JwtTokenProvider(JwtUtil jwtUtil, ApplicationUserDetailsService userDetailsService) {
+    public JwtTokenProvider(JwtUtil jwtUtil, CoustomUserDetailsService userDetailsService) {
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
     }
