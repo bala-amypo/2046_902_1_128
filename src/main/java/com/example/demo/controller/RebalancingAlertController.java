@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/alerts")
-public class RebalancingAlertRecordController {
+public class RebalancingAlertController {
     
     private final RebalancingAlertService rebalancingAlertService;
     
