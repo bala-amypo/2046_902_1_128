@@ -11,7 +11,7 @@ public class CustomUserDetailsSercive implements UserDetails {
 
     private final InvestorProfile user;
 
-    public CustomUserDetails(InvestorProfile user) {
+    public CustomUserDetailsService(InvestorProfile user) {
         this.user = user;
     }
 
