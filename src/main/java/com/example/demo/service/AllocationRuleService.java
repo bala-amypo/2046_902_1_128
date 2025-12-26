@@ -10,4 +10,5 @@ public interface AllocationRuleService {
     List<AssetClassAllocationRule> getRulesByInvestor(Long investorId);
     List<AssetClassAllocationRule> getActiveRules(Long investorId);
     AssetClassAllocationRule getRuleById(Long id);
+    List<AssetClassAllocationRule> getAllRules();
 }
