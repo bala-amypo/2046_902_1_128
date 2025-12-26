@@ -1,44 +1,30 @@
 package com.example.demo.security;
 
 import com.example.demo.entity.InvestorProfile;
+import com.example.demo.repository.InvestorProfileRepository;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
+@Service
+public class CustomUserDetailsService implements UserDetailsService {
 
-public class CustomUserDetailsSercive implements UserDetails {
+    private final InvestorProfileRepository repository;
 
-    private final InvestorProfile user;
-
-    public CustomUserDetailsService(InvestorProfile user) {
-        this.user = user;
+    public CustomUserDetailsService(InvestorProfileRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // No roles for now
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        InvestorProfile user = repository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getEmail())
+                .password(user.getPassword())
+                .roles("USER")
+                .build();
     }
-
-    @Override
-    public String getPassword() {
-        return user.getPassword();   // Ensure field exists
-    }
-
-    @Override
-    public String getUsername() {
-        return user.getEmail();     // or getUsername()
-    }
-
-    @Override
-    public boolean isAccountNonExpired() { return true; }
-
-    @Override
-    public boolean isAccountNonLocked() { return true; }
-
-    @Override
-    public boolean isCredentialsNonExpired() { return true; }
-
-    @Override
-    public boolean isEnabled() { return true; }
 }
