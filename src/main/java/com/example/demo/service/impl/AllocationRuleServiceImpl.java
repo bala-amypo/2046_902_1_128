@@ -41,6 +41,7 @@ public class AllocationRuleServiceImpl implements AllocationRuleService {
         return allocationRuleRepository.findActiveRulesHql(investorId);
     }
     
+    @Override
     public AssetClassAllocationRule getRuleById(Long id) {
         return allocationRuleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Allocation rule not found with id: " + id));
