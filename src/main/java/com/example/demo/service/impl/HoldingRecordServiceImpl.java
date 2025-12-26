@@ -6,48 +6,34 @@ import com.example.demo.service.HoldingRecordService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HoldingRecordServiceImpl implements HoldingRecordService {
-
-    private final HoldingRecordRepository repo;
-
-    public HoldingRecordServiceImpl(HoldingRecordRepository repo) {
-        this.repo = repo;
+    
+    private final HoldingRecordRepository holdingRecordRepository;
+    
+    public HoldingRecordServiceImpl(HoldingRecordRepository holdingRecordRepository) {
+        this.holdingRecordRepository = holdingRecordRepository;
     }
-
+    
     @Override
-    public HoldingRecord create(HoldingRecord record) {
-        return repo.save(record);
+    public HoldingRecord recordHolding(HoldingRecord holding) {
+        return holdingRecordRepository.save(holding);
     }
-
+    
     @Override
-    public HoldingRecord update(Long id, HoldingRecord updated) {
-        HoldingRecord record = getById(id);
-        record.setAssetClass(updated.getAssetClass());
-        record.setCurrentValue(updated.getCurrentValue());
-        record.setSnapshotDate(updated.getSnapshotDate());
-        return repo.save(record);
+    public List<HoldingRecord> getHoldingsByInvestor(Long investorId) {
+        return holdingRecordRepository.findByInvestorId(investorId);
     }
-
+    
     @Override
-    public HoldingRecord getById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Holding record not found"));
+    public Optional<HoldingRecord> getHoldingById(Long id) {
+        return holdingRecordRepository.findById(id);
     }
-
+    
     @Override
-    public List<HoldingRecord> getByInvestor(Long investorId) {
-        return repo.findByInvestorId(investorId);
-    }
-
-    @Override
-    public List<HoldingRecord> getAll() {
-        return repo.findAll();
-    }
-
-    @Override
-    public void delete(Long id) {
-        repo.deleteById(id);
+    public List<HoldingRecord> getAllHoldings() {
+        return holdingRecordRepository.findAll();
     }
 }
