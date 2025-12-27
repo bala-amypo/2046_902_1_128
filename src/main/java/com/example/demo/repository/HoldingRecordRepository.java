@@ -9,7 +9,11 @@ import java.util.List;
 
 @Repository
 public interface HoldingRecordRepository extends JpaRepository<HoldingRecord, Long> {
-    List<HoldingRecord> findByInvestorId(Long investorId);
-    List<HoldingRecord> findByCurrentValueGreaterThan(Double value);
-    List<HoldingRecord> findByInvestorIdAndAssetClass(Long investorId, AssetClassType assetClass);
+
+    List<HoldingRecord> findByInvestorId(Long investorId);   
+    List<HoldingRecord> findByValueGreaterThan(double value);
+    List<HoldingRecord> findByInvestorAndAssetClass(
+            long investor,
+            AssetClassType assetClass
+    );
 }
