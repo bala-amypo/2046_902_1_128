@@ -36,4 +36,9 @@ public class HoldingRecordServiceImpl implements HoldingRecordService {
     public Optional<HoldingRecord> getHoldingById(Long id) {
         return repository.findById(id);
     }
+
+    @Override
+    public List<HoldingRecord> getAllHoldings() {
+        return repository.findAll();
+    }
 }
