@@ -6,24 +6,28 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "user_accounts")
 public class UserAccount {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    
+    @Column(unique = true, nullable = false)
     private String username;
-
+    
+    @Column(unique = true, nullable = false)
     private String email;
-
+    
+    @Column(nullable = false)
     private String password;
-
+    
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private RoleType role;
-
-    private Boolean active;
-
+    
+    @Column(nullable = false)
+    private Boolean active = true;
+    
     public UserAccount() {}
-
+    
     public UserAccount(String username, String email, String password, RoleType role) {
         this.username = username;
         this.email = email;
@@ -31,10 +35,6 @@ public class UserAccount {
         this.role = role;
         this.active = true;
     }
-
-    // getters & setters...
-}
-
     
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -53,3 +53,4 @@ public class UserAccount {
     
     public Boolean getActive() { return active; }
     public void setActive(Boolean active) { this.active = active; }
+}
