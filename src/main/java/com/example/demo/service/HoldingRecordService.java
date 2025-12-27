@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HoldingRecordService {
-    HoldingRecord recordHolding(HoldingRecord holding);
+
+    HoldingRecord recordHolding(HoldingRecord record);
+
     List<HoldingRecord> getHoldingsByInvestor(Long investorId);
+
     Optional<HoldingRecord> getHoldingById(Long id);
-    List<HoldingRecord> getAllHoldings();
 }
