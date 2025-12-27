@@ -3,12 +3,13 @@ package com.example.demo.service.impl;
 import com.example.demo.entity.AssetClassAllocationRule;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.AssetClassAllocationRuleRepository;
+import com.example.demo.service.AllocationRuleService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AllocationRuleServiceImpl {
+public class AllocationRuleServiceImpl implements AllocationRuleService {
 
     private final AssetClassAllocationRuleRepository repository;
 
@@ -16,6 +17,7 @@ public class AllocationRuleServiceImpl {
         this.repository = repository;
     }
 
+    @Override
     public AssetClassAllocationRule createRule(AssetClassAllocationRule rule) {
 
         Double pct = rule.getTargetPercentage();
@@ -27,11 +29,13 @@ public class AllocationRuleServiceImpl {
         return repository.save(rule);
     }
 
+    @Override
     public AssetClassAllocationRule updateRule(Long id, AssetClassAllocationRule updatedRule) {
 
         AssetClassAllocationRule existing =
                 repository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("Rule not found: " + id));
+                        .orElseThrow(() ->
+                                new ResourceNotFoundException("Rule not found: " + id));
 
         Double pct = updatedRule.getTargetPercentage();
 
@@ -45,6 +49,7 @@ public class AllocationRuleServiceImpl {
         return repository.save(existing);
     }
 
+    @Override
     public List<AssetClassAllocationRule> getRulesByInvestor(Long investorId) {
         return repository.findByInvestorId(investorId);
     }
