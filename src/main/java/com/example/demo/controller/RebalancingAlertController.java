@@ -19,26 +19,30 @@ public class RebalancingAlertController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RebalancingAlertRecord> getAlertById(@PathVariable Long id) {
-
         return rebalancingAlertService.getAlertById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/investor/{investorId}")
-    public List<RebalancingAlertRecord> getAlertsByInvestor(@PathVariable Long investorId) {
-        return rebalancingAlertService.getAlertsByInvestor(investorId);
+    public ResponseEntity<List<RebalancingAlertRecord>> getAlertsByInvestor(@PathVariable Long investorId) {
+        return ResponseEntity.ok(rebalancingAlertService.getAlertsByInvestor(investorId));
     }
 
     @PostMapping
     public ResponseEntity<RebalancingAlertRecord> createAlert(
             @RequestBody RebalancingAlertRecord alert) {
-
         return ResponseEntity.ok(rebalancingAlertService.createAlert(alert));
     }
 
     @PutMapping("/{id}/resolve")
     public ResponseEntity<RebalancingAlertRecord> resolveAlert(@PathVariable Long id) {
         return ResponseEntity.ok(rebalancingAlertService.resolveAlert(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAlert(@PathVariable Long id) {
+        rebalancingAlertService.deleteAlert(id);
+        return ResponseEntity.noContent().build();
     }
 }
