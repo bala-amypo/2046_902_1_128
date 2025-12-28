@@ -15,6 +15,6 @@ public interface AllocationRuleService {
 
     Optional<AssetClassAllocationRule> getRuleById(Long id);
 
-    // ⭐ add this
+    
     void deleteRule(Long id);
 }
