@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.HoldingRecord;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.HoldingRecordRepository;
 import com.example.demo.service.HoldingRecordService;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,14 @@ public class HoldingRecordServiceImpl implements HoldingRecordService {
     @Override
     public List<HoldingRecord> getAllHoldings() {
         return repository.findAll();
+    }
+
+    // ⭐ NEW — required by controller
+    @Override
+    public void deleteHolding(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Holding not found: " + id);
+        }
+        repository.deleteById(id);
     }
 }

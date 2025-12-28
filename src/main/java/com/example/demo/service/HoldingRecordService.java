@@ -14,4 +14,7 @@ public interface HoldingRecordService {
     Optional<HoldingRecord> getHoldingById(Long id);
 
     List<HoldingRecord> getAllHoldings();
+
+
+    void deleteHolding(Long id);
 }

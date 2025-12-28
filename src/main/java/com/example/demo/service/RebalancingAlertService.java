@@ -14,4 +14,7 @@ public interface RebalancingAlertService {
     List<RebalancingAlertRecord> getAlertsByInvestor(Long investorId);
 
     Optional<RebalancingAlertRecord> getAlertById(Long id);
+
+   
+    void deleteAlert(Long id);
 }

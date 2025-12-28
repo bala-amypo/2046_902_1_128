@@ -50,4 +50,13 @@ public class RebalancingAlertServiceImpl implements RebalancingAlertService {
     public Optional<RebalancingAlertRecord> getAlertById(Long id) {
         return repository.findById(id);
     }
+
+
+    @Override
+    public void deleteAlert(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Alert not found: " + id);
+        }
+        repository.deleteById(id);
+    }
 }

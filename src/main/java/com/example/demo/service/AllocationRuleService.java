@@ -9,9 +9,12 @@ public interface AllocationRuleService {
 
     AssetClassAllocationRule createRule(AssetClassAllocationRule rule);
 
-    AssetClassAllocationRule updateRule(Long id, AssetClassAllocationRule updatedRule);
+    AssetClassAllocationRule updateRule(Long id, AssetClassAllocationRule rule);
 
     List<AssetClassAllocationRule> getRulesByInvestor(Long investorId);
 
     Optional<AssetClassAllocationRule> getRuleById(Long id);
+
+    // ⭐ add this
+    void deleteRule(Long id);
 }
