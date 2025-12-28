@@ -59,4 +59,13 @@ public class AllocationRuleServiceImpl implements AllocationRuleService {
     public Optional<AssetClassAllocationRule> getRuleById(Long id) {
         return repository.findById(id);
     }
+
+    // ⭐ NEW — required by controller
+    @Override
+    public void deleteRule(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Rule not found: " + id);
+        }
+        repository.deleteById(id);
+    }
 }
