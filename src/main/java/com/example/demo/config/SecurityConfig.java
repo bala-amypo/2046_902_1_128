@@ -47,7 +47,6 @@ public class SecurityConfig {
                     "/api/alerts/**"
                 ).permitAll()
 
-                // ⭐ EVERYTHING ELSE NEEDS LOGIN
                 .anyRequest().authenticated()
             );
 
