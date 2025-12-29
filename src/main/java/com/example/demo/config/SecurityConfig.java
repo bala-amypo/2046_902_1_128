@@ -13,23 +13,44 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@Bean
-public SecurityConfig securityConfig(HttpSecurity http) throws Exception {
+public class SecurityConfig {
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-    http
-        .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers(
-                "/api/investors/**",
-                "/api/holdings/**",
-                "/api/rules/**",
-                "/api/alerts/**",
-                "/swagger-ui/**",
-                "/v3/api-docs/**",
-                "/auth/**"
-            ).permitAll()
-            .anyRequest().authenticated()
-        );
+        http
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                
+                // ⭐ PUBLIC ENDPOINTS
+                .requestMatchers(
+                    "/auth/**",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/status",
+                    
+                    // your project APIs
+                    "/api/investors/**",
+                    "/api/holdings/**",
+                    "/api/rules/**",
+                    "/api/alerts/**"
+                ).permitAll()
 
-    return http.build();
+                // ⭐ EVERYTHING ELSE NEEDS LOGIN
+                .anyRequest().authenticated()
+            );
+
+        return http.build();
+    }
 }
