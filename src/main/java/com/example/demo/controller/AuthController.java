@@ -56,4 +56,49 @@ public class AuthController {
         
         return ResponseEntity.ok(new AuthResponse(token, user.getId(), user.getEmail(), user.getRole().name()));
     }
+
+
+    @RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserAccountRepository userAccountRepository;
+
+    public AuthController(AuthenticationManager authenticationManager,
+                          JwtTokenProvider jwtTokenProvider,
+                          UserAccountRepository userAccountRepository) {
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userAccountRepository = userAccountRepository;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(), 
+                        request.getPassword()
+                )
+        );
+
+        UserAccount user = userAccountRepository
+                .findByEmail(request.getEmail())
+                .orElseThrow();
+
+        String token = jwtTokenProvider.generateToken(authentication, user);
+
+        return ResponseEntity.ok(
+                new AuthResponse(
+                        token,
+                        user.getId(),
+                        user.getEmail(),
+                        user.getRole().name()
+                )
+        );
+    }
+}
+
 }
